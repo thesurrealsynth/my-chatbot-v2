@@ -1,7 +1,9 @@
+/* Importing your chosen font: Playwrite HU */
 @import url('https://fonts.googleapis.com/css2?family=Playwrite+HU:wght@100..400&display=swap');
 
+/* Body is now the 'stage' for our effect */
 body {
-    background: linear-gradient(135deg, #ece9e6, #ffffff);
+    background-color: #000000; /* A dark base for the colors to pop */
     font-family: "Playwrite HU", cursive;
     display: flex;
     justify-content: center;
@@ -9,6 +11,69 @@ body {
     height: 100vh;
     margin: 0;
     color: #333;
+    overflow: hidden; /* This is important to contain the blobs */
+    position: relative;
 }
-/* ... (The rest of your beautiful CSS) ... */
-#chat-container{width:420px;height:90vh;max-height:700px;background-color:#fff;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.1);display:flex;flex-direction:column;overflow:hidden;border:1px solid #e0e0e0}#chat-box{flex-grow:1;padding:20px;overflow-y:auto}.user-message,.bot-message{max-width:80%;padding:12px 18px;border-radius:20px;margin-bottom:12px;line-height:1.5;word-wrap:break-word;transition:transform .2s ease-out}.user-message:hover,.bot-message:hover{transform:translateY(-2px)}.user-message{background:linear-gradient(135deg,#007bff,#0056b3);color:#fff;margin-left:auto;border-bottom-right-radius:5px}.bot-message{background-color:#f1f0f0;color:#333;margin-right:auto;border-bottom-left-radius:5px}#input-container{display:flex;padding:15px;border-top:1px solid #e0e0e0;background-color:#f9f9f9}#user-input{flex-grow:1;border:none;background-color:#fff;border-radius:20px;padding:12px 18px;font-size:16px;font-family:"Playwrite HU",cursive;outline:none;box-shadow:0 2px 5px rgba(0,0,0,.05);transition:box-shadow .3s ease}#user-input:focus{box-shadow:0 2px 8px rgba(0,123,255,.2)}#send-btn{background:#007bff;color:#fff;border:none;border-radius:50%;width:48px;height:48px;margin-left:10px;font-size:20px;cursor:pointer;display:flex;justify-content:center;align-items:center;transition:background-color .3s ease,transform .2s ease}#send-btn:hover{background-color:#0056b3;transform:scale(1.1)}
+
+/* --- The Aurora Blobs --- */
+/* We create two pseudo-elements to act as our color blobs */
+body::before,
+body::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px); /* This makes them super blurry */
+    opacity: 0.7;
+}
+
+/* The first blob */
+body::before {
+    background: radial-gradient(circle, #ff00ff, #00ffff);
+    width: 400px;
+    height: 400px;
+    top: -10%;
+    left: -10%;
+    animation: moveBlob1 20s infinite alternate;
+}
+
+/* The second blob */
+body::after {
+    background: radial-gradient(circle, #ff9900, #ff00ff);
+    width: 500px;
+    height: 500px;
+    bottom: -15%;
+    right: -15%;
+    animation: moveBlob2 25s infinite alternate;
+}
+
+/* --- The Chat Container --- */
+/* We need to make sure the chat box sits ON TOP of the background */
+#chat-container {
+    position: relative; /* Stacking context */
+    z-index: 1; /* Puts it on top of the blobs */
+    width: 420px;
+    height: 90vh;
+    max-height: 700px;
+    background-color: rgba(255, 255, 255, 0.85); /* Slightly see-through */
+    backdrop-filter: blur(12px); /* Frosted glass effect */
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid rgba(224, 224, 224, 0.3);
+}
+
+/* --- The rest of the styles are mostly the same --- */
+#chat-box{flex-grow:1;padding:20px;overflow-y:auto}.user-message,.bot-message{max-width:80%;padding:12px 18px;border-radius:20px;margin-bottom:12px;line-height:1.5;word-wrap:break-word}.user-message{background:linear-gradient(135deg,#6f00ff,#b300ff);color:#fff;margin-left:auto;border-bottom-right-radius:5px;box-shadow:0 2px 5px rgba(0,0,0,.2)}.bot-message{background-color:#f1f0f0;color:#333;margin-right:auto;border-bottom-left-radius:5px}#input-container{display:flex;padding:15px;border-top:1px solid rgba(224,224,224,.3);background-color:rgba(249,249,249,.7)}#user-input{flex-grow:1;border:none;background-color:#fff;border-radius:20px;padding:12px 18px;font-size:16px;font-family:"Playwrite HU",cursive;outline:none;box-shadow:0 2px 5px rgba(0,0,0,.05);transition:box-shadow .3s ease}#user-input:focus{box-shadow:0 2px 8px rgba(111,0,255,.3)}#send-btn{background:#6f00ff;color:#fff;border:none;border-radius:50%;width:48px;height:48px;margin-left:10px;font-size:20px;cursor:pointer;display:flex;justify-content:center;align-items:center;transition:background-color .3s ease,transform .2s ease}#send-btn:hover{background-color:#4c00b3;transform:scale(1.1)}
+
+/* --- The animations that move the blobs --- */
+@keyframes moveBlob1 {
+    from { transform: translate(-20%, 20%) rotate(0deg); }
+    to { transform: translate(20%, -20%) rotate(360deg); }
+}
+
+@keyframes moveBlob2 {
+    from { transform: translate(10%, -10%) rotate(0deg); }
+    to { transform: translate(-10%, 10%) rotate(360deg); }
+}
