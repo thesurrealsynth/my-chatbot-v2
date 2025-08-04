@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const userInput = document.getElementById('user-input');
     const sendBtn = document.getElementById('send-btn');
 
-    const API_URL = 'http://localhost:3000/chat';
+    const API_URL = 'https://chatbot-backend-v2-thesurrealsynth.onrender.com/chat';
 
     const systemInstruction = {
         role: 'user',
